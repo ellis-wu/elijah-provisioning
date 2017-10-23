@@ -11,3 +11,6 @@ build/
 *.mem
 *.pyc
 *.class
+.idea
+.DS_STORE
+.DS_Store

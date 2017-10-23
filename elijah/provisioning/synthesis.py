@@ -1286,13 +1286,15 @@ def rettach_nic(machine, old_xml, new_xml, **kwargs):
     """
     old_xml = ElementTree.fromstring(old_xml)
     old_nic = old_xml.find('devices/interface')
-    filter_element = old_nic.find("filterref")
-    if filter_element is not None:
-        old_nic.remove(filter_element)
-    old_nic_xml = ElementTree.tostring(old_nic)
-    ret = machine.detachDevice(old_nic_xml)
-    if ret != 0:
-        LOG.warning("failed to detach device")
+    if old_nic is not None:
+        filter_element = old_nic.find("filterref")
+        if filter_element is not None:
+            old_nic.remove(filter_element)
+        old_nic_xml = ElementTree.tostring(old_nic)
+        ret = machine.detachDevice(old_nic_xml)
+        if ret != 0:
+            LOG.warning("failed to detach device")
+
     sleep(2)
 
     # attach
